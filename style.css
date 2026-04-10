@@ -21,3 +21,25 @@ button {
     transform: scale(1.05);
     border-color: #febd69;
 }
+/* style.css에 추가 */
+#detail-view {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(253, 246, 227, 0.95); /* 배경색과 살짝 투명하게 */
+    padding: 20px; box-sizing: border-box;
+    display: flex; flex-direction: column; align-items: center;
+    overflow-y: auto; /* 내용이 많으면 스크롤 */
+}
+
+#detail-content {
+    max-width: 500px; text-align: center; margin-top: 50px;
+}
+
+#detail-desc {
+    font-size: 1.3rem; line-height: 1.6; color: #555;
+    margin-bottom: 20px; background: white; padding: 15px; border-radius: 10px;
+}
+
+#close-detail {
+    position: absolute; top: 20px; right: 20px;
+    padding: 10px 20px; font-size: 1.1rem; background: #ff6b6b; color: white;
+}
