@@ -1,64 +1,65 @@
-
+// script.js 전체 교체
 const menuData = [
-    {
-        name: "따뜻한 아메리카노",
-        img: "americano.jpg", // 아메리카노 사진 파일명
+    { 
+        name: "따뜻한 아메리카노", 
+        img: "americano.jpg",
         description: "커피 원두 추출액과 물을 섞은 기본적인 커피입니다. 달지 않고 쓴맛이 납니다.",
-        priceImg: "money_4000.jpg", // 천원 4장 이미지 파일명
-        priceText: "4,000원 (천원 지폐 4장이 필요해요)"
+        priceImg: "money_4000.jpg" // 미리 만드신 아메리카노용 이미지 파일명
     },
-    {
-        name: "카페라떼",
-        img: "latte.jpg", // 카페라떼 사진 파일명
+    { 
+        name: "카페라떼", 
+        img: "latte.jpg",
         description: "커피 원두 추출액과 우유를 섞은 부드러운 맛의 커피입니다.",
-        priceImg: "money_4500.jpg", // 천원 4장 + 500원 1개 이미지 파일명
-        priceText: "4,500원 (천원 4장과 500원 동전 1개가 필요해요)"
+        priceImg: "money_4500.jpg" // 미리 만드신 라떼용 이미지 파일명
     },
-    {
-        name: "초코라떼",
-        img: "choco.jpg", // 초코라떼 사진 파일명
+    { 
+        name: "초코라떼", 
+        img: "choco.jpg",
         description: "초코분말과 우유를 섞어서 달콤하고 초코맛이 나는 우유 음료입니다.",
-        priceImg: "money_4800.jpg", // 천원 4장 + 500원 1개 + 100원 3개 이미지 파일명
-        priceText: "4,800원 (천원 4장, 500원 1개, 100원 3개가 필요해요)"
+        priceImg: "money_4800.jpg" // image_5.png 파일을 money_4800.jpg로 이름 바꿔 올리세요
     }
 ];
 
 const viewMenuBtn = document.getElementById('view-menu');
 const menuDiv = document.getElementById('menu');
 const menuList = document.getElementById('menu-list');
+const detailView = document.getElementById('detail-view');
+const detailDesc = document.getElementById('detail-desc');
+const detailPriceImg = document.getElementById('detail-price-img');
+const closeDetailBtn = document.getElementById('close-detail');
 
+// 메뉴판 보기 버튼
 viewMenuBtn.addEventListener('click', () => {
-    // 메인 페이지 숨기고 메뉴판 표시
     document.getElementById('main-page').classList.add('hidden');
     menuDiv.classList.remove('hidden');
+    renderMenuList();
+});
 
-    menuList.innerHTML = '';
+// 메뉴 목록 렌더링
+function renderMenuList() {
+    menuList.innerHTML = ''; 
     menuData.forEach(item => {
-        // 메뉴 카드 생성
         const menuCard = document.createElement('div');
         menuCard.className = 'menu-card';
-       
         menuCard.innerHTML = `
-            <img src="${item.img}" alt="${item.name}" style="width:150px; height:150px; border-radius:10px;">
+            <img src="${item.img}" alt="${item.name}" style="width:120px; height:120px; border-radius:10px; object-fit:cover;">
             <h3>${item.name}</h3>
         `;
-
-        // 클릭 이벤트: 상세 설명과 돈 이미지 보여주기
-        menuCard.onclick = () => {
-            const detailMessage = `
-                [설명]
-                ${item.description}
-               
-                [가격 확인]
-                ${item.priceText}
-            `;
-           
-            // 알림창 대신 화면에 상세 정보를 띄우는 것이 AAC 목적에 더 부합하므로
-            // 여기서는 이해를 돕기 위해 간단한 confirm창을 활용하거나 전용 모달을 쓸 수 있습니다.
-            // 일단 요청하신 대로 메시지를 띄우고, 이미지는 추후 레이아웃에 배치 가능합니다.
-            alert(detailMessage);
-        };
-
+        menuCard.onclick = () => showDetail(item);
         menuList.appendChild(menuCard);
     });
-});
+}
+
+// 상세 정보 보기
+function showDetail(item) {
+    detailDesc.innerText = item.description;
+    detailPriceImg.src = item.priceImg;
+    detailView.classList.remove('hidden');
+    menuDiv.classList.add('hidden'); // 메뉴 목록 잠시 숨김
+}
+
+// 상세 정보 닫기
+closeDetailBtn.onclick = () => {
+    detailView.classList.add('hidden');
+    menuDiv.classList.remove('hidden');
+};
